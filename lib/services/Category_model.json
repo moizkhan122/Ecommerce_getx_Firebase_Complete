@@ -1,0 +1,76 @@
+{
+    "categories":[
+        {
+            "name": "Men Clothing Fashion",
+            "Sub categories" : [
+                "Wedding And Event",
+                "Tops and Sets",
+                "Watches"
+            ]
+        },
+        {
+            "name": "Computer Assecories",
+            "Sub categories" : [
+                "Laptop",
+                "Gaming PC",
+                "Official Equipment"
+            ]
+        },
+        {
+            "name": "Auto Mobile",
+            "Sub categories" : [
+                "Car",
+                "Bikes",
+                "Autos"
+            ]
+        },
+        {
+            "name": "Kids & Toys",
+            "Sub categories" : [
+                "Shoes & Begs",
+                "Baby & Clothing",
+                "Girls Toys"
+            ]
+        },
+        {
+            "name": "Sports",
+            "Sub categories" : [
+                "Bats",
+                "Balls",
+                "Foot Ball"
+            ]
+        },
+        {
+            "name": "Cell phone",
+            "Sub categories" : [
+                "Tablets",
+                "Iphone",
+                "Watches"
+            ]
+        },
+        {
+            "name": "Women Products",
+            "Sub categories" : [
+                "Hair Dryer",
+                "Shampoo",
+                "Make up"
+            ]
+        },
+        {
+            "name": "Jwellery",
+            "Sub categories" : [
+                "Braclets",
+                "Chain",
+                "Watches"
+            ]
+        },
+        {
+            "name": "Furniture",
+            "Sub categories" : [
+                "Bed",
+                "Sofa",
+                "Table"
+            ]
+        }
+    ]
+}

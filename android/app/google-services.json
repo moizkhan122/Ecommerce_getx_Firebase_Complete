@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "257882840853",
+    "project_id": "emartgetxecommerce",
+    "storage_bucket": "emartgetxecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257882840853:android:a6117925b109ae8b1e931c",
+        "android_client_info": {
+          "package_name": "com.example.emart_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257882840853-tb2mdon99k3uqms0jpcio672eue8cbqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIjGa91C_XmvpRZf0mvu13bPpsrCz7rqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257882840853-tb2mdon99k3uqms0jpcio672eue8cbqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
