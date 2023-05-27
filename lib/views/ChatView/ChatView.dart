@@ -9,8 +9,8 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(ChatController());
     
+    var controller = Get.put(ChatController());
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(

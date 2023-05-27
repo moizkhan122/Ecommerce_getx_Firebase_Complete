@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 
 class ChatController extends GetxController {
 
-  @override
+@override
   void onInit() {
+    // TODO: implement onInit
     getChatId();
     super.onInit();
   }
@@ -25,9 +26,11 @@ class ChatController extends GetxController {
     dynamic chatDocId;
 
     getChatId()async{
-      await chats.where('users',isEqualTo: {friendId : null, currentID:null})
+      await chats
+      .where('users',isEqualTo: {friendId : null, currentID:null})
       .limit(1)
-      .get().then((QuerySnapshot snapshot){
+      .get().
+      then((QuerySnapshot snapshot){
         //if they already chat
         if (snapshot.docs.isNotEmpty) {
           chatDocId = snapshot.docs.single.id;
@@ -47,7 +50,7 @@ class ChatController extends GetxController {
         }
       });
     }
-
+ 
     sendmsg(String msg)async{
       if (msg.trim().isNotEmpty) {
           chats.doc(chatDocId).update({

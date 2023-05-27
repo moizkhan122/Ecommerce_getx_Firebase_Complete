@@ -33,9 +33,22 @@ class ItemDetails extends StatelessWidget {
             IconButton(
               onPressed: (){}, 
               icon:const Icon(Icons.share)),
-              IconButton(
-              onPressed: (){}, 
-              icon:const Icon(Icons.favorite_outline))
+              Obx(
+                ()=>IconButton(
+                onPressed: (){
+                  if (controller.isFAv.value) {
+                      controller.removeFromWishList(data.id,context);
+                      controller.isFAv(false);
+                  }
+                  else{
+                    controller.addToWishList(data.id,context);
+                      controller.isFAv(true);
+                  }
+                }, 
+                icon: Icon(Icons.favorite_outline,
+                color: controller.isFAv.value? redColor : darkFontGrey,
+                )),
+              )
           ],
         ),
         body: Column(
@@ -89,10 +102,13 @@ class ItemDetails extends StatelessWidget {
                               backgroundColor: whiteColor,
                               child: Icon(Icons.message_rounded),
                             ).onTap(() {
+                              // var myRxString = RxString( data['p_seller']);
+                              // var sellername = myRxString.value;
+                              // var rexString = RxString( data['sellerId']);
+                              // var sellerid = rexString.value;
                               Get.to(()=> const ChatView(),
                               arguments: [
-                                data['p_seller'],
-                                data['sellerId'],
+                                data['p_seller'],data['vender_id'],
                               ]
                               );
                             })

@@ -72,7 +72,8 @@ class CategoriesDetails extends StatelessWidget {
                                 10.heightBox,
                                 "${data[index]['p_price']}".numCurrency.text.size(15).fontFamily(bold).color(redColor).make(),
                               ],).box.roundedSM.shadowSm.padding(const EdgeInsets.all(15)).white.make().onTap(() {
-                                Get.to( ItemDetails(title: "${data[index]['p_name']}",data: data[index],));
+                                controller.checkIfFav(data[index]);
+                                Get.to(ItemDetails(title: "${data[index]['p_name']}",data: data[index],));
                               });
                        },),
               )

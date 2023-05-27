@@ -13,6 +13,10 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.put(CartController());
     return Scaffold(
+      bottomNavigationBar: SizedBox(
+        height: 60,
+        child: ourButton(color: redColor,onpress: (){},
+        title: "Proceed To checkout",txtColor: whiteColor,)),
       backgroundColor: whiteColor,
       appBar: AppBar(
         centerTitle: true,
@@ -60,10 +64,7 @@ class CartView extends StatelessWidget {
               ],
             ).box.padding(const EdgeInsets.all(12)).color(golden).make(),
             10.heightBox,
-            SizedBox(
-              width: context.screenWidth - 60,
-              child: ourButton(color: redColor,onpress: (){},title: "CheckOut",txtColor: whiteColor),
-            ),
+           
         ],)
         );
           }
