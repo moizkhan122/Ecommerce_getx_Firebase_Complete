@@ -21,4 +21,26 @@ class FirestoreServices {
     static deleteDocument(docid){
       return firestore.collection(cartCollections).doc(docid).delete();
     }
+     //get all my messages
+    static getChatMessages(docId){
+      return firestore.collection(chatCollections)
+      .doc(docId).collection(messageCollections)
+      .orderBy('created_on',descending: false)
+      .snapshots();
+    }
+
+    //get orders
+    static getAllOrders(){
+      return firestore.collection(orderCollections).where('order_by',isEqualTo: currentUser!.uid).snapshots();
+    }
+
+    //get My WishList
+    static getWishListProducts(){
+      return firestore.collection(productsCollections).where('p_wishlist',arrayContains: currentUser!.uid).snapshots();
+    }
+
+    static getAllMessages(){
+      return firestore.collection(chatCollections).where('fromId',isEqualTo: currentUser!.uid).snapshots();
+    }
+
 }

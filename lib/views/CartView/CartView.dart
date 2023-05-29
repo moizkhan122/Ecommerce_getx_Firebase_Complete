@@ -4,6 +4,7 @@ import 'package:emart_app/Widgets/loadingIndicator.dart';
 import 'package:emart_app/Widgets/ourButton.dart';
 import 'package:emart_app/consts/consts.dart';
 import 'package:emart_app/services/firebaseServices/firestoreServices/firestoreServices.dart';
+import 'package:emart_app/views/CartView/ShippingView.dart';
 import 'package:get/get.dart';
 
 class CartView extends StatelessWidget {
@@ -15,7 +16,10 @@ class CartView extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: SizedBox(
         height: 60,
-        child: ourButton(color: redColor,onpress: (){},
+        child: ourButton(color: redColor,
+        onpress: (){
+          Get.to(const ShippinView());
+        },
         title: "Proceed To checkout",txtColor: whiteColor,)),
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -33,6 +37,7 @@ class CartView extends StatelessWidget {
           }else{
             var data = snapshot.data!.docs;
             controller.calculateTotal(data);
+            controller.productSnapshot = data;
             return Padding(
         padding:const EdgeInsets.all(12),
         child: Column(children: [
@@ -42,7 +47,7 @@ class CartView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
-                    leading: Image.network("${data[index]['img']}"),
+                    leading: Image.network("${data[index]['img']}",width: 80,fit: BoxFit.cover,),
                     title: "${data[index]['title']} (x${data[index]['qty']})".text.make(),
                     subtitle: "${data[index]['tPrice']}".text.make(),
                     trailing: IconButton(

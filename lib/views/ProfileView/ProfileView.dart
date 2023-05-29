@@ -6,8 +6,11 @@ import 'package:emart_app/consts/consts.dart';
 import 'package:emart_app/consts/list.dart';
 import 'package:emart_app/services/firebaseServices/firestoreServices/firestoreServices.dart';
 import 'package:emart_app/views/AuthViews/LoginView/LoginView.dart';
+import 'package:emart_app/views/ChatView/MessagingView.dart';
+import 'package:emart_app/views/ProfileView/OrdersView/OrdersView.dart';
 import 'package:emart_app/views/ProfileView/components/card_Detail.dart';
 import 'package:emart_app/views/ProfileView/edit_profile.dart';
+import 'package:emart_app/views/ProfileView/wishListView.dart/WIshListView.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
@@ -100,6 +103,20 @@ class ProfileViewView extends StatelessWidget {
               itemCount: profileButtonList.length,
               itemBuilder: (context, index) {
                 return ListTile(
+                  onTap: (){
+                    switch (index) {
+                      case 0:
+                        Get.to(()=> const WishListView());
+                        break;
+                        case 1:
+                        Get.to(()=> const OrdersView());
+                        break;
+                        case 2:
+                        Get.to(()=> const MessageView());
+                        break;
+                      default:
+                    }
+                  },
                   leading: Image.asset(profileButtonIcon[index],width: 20,),
                   title: profileButtonList[index].text.fontFamily(semibold).make(),
                 );

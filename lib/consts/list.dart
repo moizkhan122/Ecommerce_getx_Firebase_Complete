@@ -45,3 +45,6 @@ const profileButtonList= [
 const profileButtonIcon= [
   icOrder,icOrder,icMessages
 ];
+
+const paymentMethodImg = [imgPaypal,imgStripe,imgCod];
+const paymentMethods = [paypal,stripe,cashOnDelievery];

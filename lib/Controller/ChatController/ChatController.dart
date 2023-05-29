@@ -18,14 +18,17 @@ class ChatController extends GetxController {
     var friendName = Get.arguments[0];
     var friendId = Get.arguments[1];
 
-    var senderName = Get.find<HomeController>().username;
+    var senderName = Get.find<HomeController>().username.value;
     var currentID = currentUser!.uid;
 
     var msgController = TextEditingController();
 
     dynamic chatDocId;
 
+    var isloading = false.obs;
+
     getChatId()async{
+      isloading(true);
       await chats
       .where('users',isEqualTo: {friendId : null, currentID:null})
       .limit(1)
@@ -48,20 +51,22 @@ class ChatController extends GetxController {
             chatDocId = value.id;
           });
         }
+        print(chatDocId);
       });
+      isloading(false);
     }
  
     sendmsg(String msg)async{
       if (msg.trim().isNotEmpty) {
           chats.doc(chatDocId).update({
-            'created_on ' : FieldValue.serverTimestamp(),
+            'created_on' : FieldValue.serverTimestamp(),
             'last_msg' : msg,
             'toId' : friendId,
             'fromId' : currentID
           });
 
           chats.doc(chatDocId).collection(messageCollections).doc().set({
-            'created_on ' : FieldValue.serverTimestamp(),
+            'created_on' : FieldValue.serverTimestamp(),
             'msg' : msg,
             'uid' : currentID
           });

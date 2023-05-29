@@ -49,3 +49,5 @@ productyoymaylike="Product You May Like";
 const wishlists="WishLists",orders="Orders",messages="Messages";
 
 const productsCollections = "Products";
+
+const paypal = "Paypal",stripe = "Stripe", cashOnDelievery = "Cash On Delivery";
