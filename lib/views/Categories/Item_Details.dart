@@ -228,7 +228,8 @@ class ItemDetails extends StatelessWidget {
               width: double.infinity,
               height: 60,
               child: ourButton(title: "Add To cart",color: redColor,onpress: (){
-                controller.addToCart(
+                if (controller.quantity.value > 0) {
+                  controller.addToCart(
                   color: data['p_colors'][controller.colorIndex.value],
                   context: context,
                   img: data['p_imgs'][0],
@@ -239,6 +240,9 @@ class ItemDetails extends StatelessWidget {
                   title: title,
                 );
                 VxToast.show(context, msg: "product Added To Cart");
+                }else{
+                  VxToast.show(context, msg: "Quantity cant be zero");
+                }
               },txtColor: Colors.white),)
           ]),
       ),

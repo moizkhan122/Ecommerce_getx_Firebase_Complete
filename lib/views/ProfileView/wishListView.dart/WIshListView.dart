@@ -22,7 +22,34 @@ class WishListView extends StatelessWidget {
           } else if(snapshot.data!.docs.isEmpty){
               return Center(child: "No Message yet!".text.size(20).color(darkFontGrey).make(),);
           }else{
-            return Container();
+            var data = snapshot.data!.docs;
+            return Padding(
+        padding:const EdgeInsets.all(12),
+        child: Column(children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    leading: Image.network("${data[index]['p_imgs'][0]}",width: 80,fit: BoxFit.cover,),
+                    title: "${data[index]['p_name']} (x${data[index]['p_quantity']})".text.make(),
+                    subtitle: "${data[index]['p_price']}".text.make(),
+                    trailing: IconButton(
+                      onPressed: (){
+                        //deleting product from ducment
+                        //FirestoreServices.deleteDocument(data[index].id);
+                      }, 
+                      icon:const Icon(Icons.favorite,color: redColor,)),
+                  ),
+                );
+              },)
+            ),
+            10.heightBox,
+           
+        ],)
+        );
+ 
           }
       },),
     );
