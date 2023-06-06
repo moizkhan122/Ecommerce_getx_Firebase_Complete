@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emart_app/Controller/ProfileController/ProfileController.dart';
 import 'package:emart_app/Controller/firebase_services/AuthController.dart';
 import 'package:emart_app/Widgets/Bg_Widget.dart';
+import 'package:emart_app/Widgets/loadingIndicator.dart';
 import 'package:emart_app/consts/consts.dart';
 import 'package:emart_app/consts/list.dart';
 import 'package:emart_app/services/firebaseServices/firestoreServices/firestoreServices.dart';
@@ -86,13 +87,24 @@ class ProfileViewView extends StatelessWidget {
               ],),
             ),
             10.heightBox,
-           Row(
+           FutureBuilder(
+            future: FirestoreServices.getCount(),
+            builder: (context,AsyncSnapshot snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: loadingIndicator(),
+                );
+              }
+              else{
+                var countData = snapshot.data;
+                return Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              cardDetails(count: "00",title: "In your Cart",width: context.screenWidth/3.4),
-              cardDetails(count: "12",title: "In your Wishlist",width: context.screenWidth/3.4),
-              cardDetails(count: "23",title: "In your order",width: context.screenWidth/3.4),
-            ],),
+              cardDetails(count: countData[0].toString(),title: "In your Cart",width: context.screenWidth/3.4),
+              cardDetails(count: countData[1].toString(),title: "In your Wishlist",width: context.screenWidth/3.4),
+              cardDetails(count: countData[2].toString(),title: "In your order",width: context.screenWidth/3.4),
+            ],);
+              }
+           },),
             10.heightBox,
             //button section
             ListView.separated(

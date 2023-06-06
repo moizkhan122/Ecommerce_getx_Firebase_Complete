@@ -1,14 +1,22 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emart_app/Controller/HomeController/HomeController.dart';
 import 'package:emart_app/Widgets/HomeButton.dart';
 import 'package:emart_app/Widgets/featuredButton.dart';
+import 'package:emart_app/Widgets/loadingIndicator.dart';
 import 'package:emart_app/consts/consts.dart';
 import 'package:emart_app/consts/list.dart';
+import 'package:emart_app/services/firebaseServices/firestoreServices/firestoreServices.dart';
+import 'package:emart_app/views/Categories/Item_Details.dart';
+import 'package:emart_app/views/HomeView/SearchView.dart';
+import 'package:get/get.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<HomeController>();
     return Container(
       padding:const EdgeInsets.all(12),
       color: lightGrey,
@@ -22,9 +30,15 @@ class HomeView extends StatelessWidget {
               height: 60,
               color: lightGrey,
               child: TextFormField(
-                decoration: const InputDecoration(
+                controller: controller.searchController,
+                decoration:  InputDecoration(
                   border: InputBorder.none,
-                  suffixIcon: Icon(Icons.search,color: Colors.grey,),
+                  suffixIcon:const Icon(Icons.search,color: Colors.grey,)
+                  .onTap(() {
+                    if (controller.searchController.text.isNotEmptyAndNotNull) {
+                      Get.to(()=> SearchView(titlee: controller.searchController.text,));
+                    }
+                   }),
                   filled: true,
                   fillColor: whiteColor,
                   hintText: searchEverything,
@@ -79,6 +93,8 @@ class HomeView extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: featuredcategories.text.size(18).color(darkFontGrey).fontFamily(semibold).make()),
                       10.heightBox,
+
+                      //featured categories
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         physics:const BouncingScrollPhysics(),
@@ -99,6 +115,7 @@ class HomeView extends StatelessWidget {
                             ).toList(),
                         ),
                       ),
+                      //featured products
                       20.heightBox,
                       Container(
                         width: double.infinity,
@@ -111,19 +128,37 @@ class HomeView extends StatelessWidget {
                           7.heightBox,
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: List.generate(6, 
+                            child: StreamBuilder(
+                              stream: FirestoreServices.getFeaturedProducts(),
+                              builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Center(child: loadingIndicator(),);
+                                } else if(snapshot.data!.docs.isEmpty) {
+                                  return Center(child: "No featured Products Here".text.size(20).color(darkFontGrey).make(),);
+                                }
+                                else{
+                                  var featuredPro = snapshot.data!.docs;
+                                  return Row(
+                              children: List.generate(featuredPro.length, 
                               (index) => Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   5.heightBox,
-                                  Image.asset(imgP1,width: 150,fit: BoxFit.cover,),
+                                  Image.network(
+                                    featuredPro[index]['p_imgs'][0],
+                                    width: 150,fit: BoxFit.cover,),
                                   10.heightBox,
-                                  "Lenovo 64Gb".text.size(15).fontFamily(bold).color(redColor).make(),
-                                  "\$100".text.size(15).fontFamily(bold).color(redColor).make(),
-                                ],).box.roundedSM.padding(const EdgeInsets.all(10)).white.margin(const EdgeInsets.symmetric(horizontal: 5)).make(),
+                                  "${featuredPro[index]['p_name']}".text.size(15).fontFamily(bold).color(redColor).make(),
+                                  "${featuredPro[index]['p_price']}".text.size(15).fontFamily(bold).color(redColor).make(),
+                                ],).box.roundedSM.padding(const EdgeInsets.all(10)).white.margin(const EdgeInsets.symmetric(horizontal: 5)).make().onTap(() {
+                                   Get.to(
+                                    ItemDetails(
+                                      title: "${featuredPro[index]['p_name']}",data: featuredPro[index],));
+                                }),
                                 ),
-                            ),
+                            );
+                                }
+                            },)
                           ),
                           
                         ]),
@@ -139,9 +174,19 @@ class HomeView extends StatelessWidget {
                       return Image.asset(slider2List[index],fit: BoxFit.cover,).box.clip(Clip.antiAlias).margin(const EdgeInsets.symmetric(horizontal: 8)).rounded.make();
                     },),
                     20.heightBox,
-                    GridView.builder(
+                    StreamBuilder(
+                      stream: FirestoreServices.getAllProducts(),
+                            builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(child: loadingIndicator(),);
+                              } else if(snapshot.data!.docs.isEmpty){
+                                  return Center(child: "No Products here".text.size(20).color(darkFontGrey).make());
+                              }else{
+
+                        var allProducts = snapshot.data!.docs;
+                      return GridView.builder(
                       physics:const NeverScrollableScrollPhysics(),
-                      itemCount: 6,
+                      itemCount: allProducts.length,
                       shrinkWrap: true,
                       gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
                         mainAxisExtent: 300,
@@ -153,17 +198,24 @@ class HomeView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   5.heightBox,
-                                  Image.asset(
-                                    imgP5,
+                                  Image.network(
+                                    allProducts[index]['p_imgs'][1],
                                     height: 200,
                                     width: 200,
                                     fit: BoxFit.cover,),
                                   const Spacer(),
-                                  "Lenovo 64Gb".text.size(15).fontFamily(bold).color(redColor).make(),
+                                  "${allProducts[index]['p_name']}".text.size(15).fontFamily(bold).color(redColor).make(),
                                   10.heightBox,
-                                  "\$100".text.size(15).fontFamily(bold).color(redColor).make(),
-                                ],).box.roundedSM.padding(const EdgeInsets.all(15)).white.make();
-                         },)
+                                  "${allProducts[index]['p_price']}".text.size(15).fontFamily(bold).color(redColor).make(),
+                                ],).box.roundedSM.padding(const EdgeInsets.all(15)).white.make().onTap(() {
+                                  Get.to(
+                                    ItemDetails(
+                                      title: "${allProducts[index]['p_name']}",data: allProducts[index],));
+                                });
+                         },);
+                    }
+                    }
+                    )
                     ],),
                 ),
               )
@@ -172,3 +224,11 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
+/**stream: FirestoreServices.getAllProducts(),
+                            builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(child: loadingIndicator(),);
+                              } else if(snapshot.data!.docs.isEmpty){
+                                  return Center(child: "No Products here".text.size(20).color(darkFontGrey).make());
+                              }else{ */

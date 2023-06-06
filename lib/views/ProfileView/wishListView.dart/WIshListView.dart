@@ -36,9 +36,12 @@ class WishListView extends StatelessWidget {
                     title: "${data[index]['p_name']} (x${data[index]['p_quantity']})".text.make(),
                     subtitle: "${data[index]['p_price']}".text.make(),
                     trailing: IconButton(
-                      onPressed: (){
-                        //deleting product from ducment
-                        //FirestoreServices.deleteDocument(data[index].id);
+                      onPressed: ()async{
+                        //deleting product from wishlist screen
+                         await firestore.collection(productsCollections).doc(data[index].id).set({
+                          'p_wishlist':FieldValue.arrayRemove([currentUser!.uid]),
+                         },SetOptions(merge: true),
+                         );
                       }, 
                       icon:const Icon(Icons.favorite,color: redColor,)),
                   ),

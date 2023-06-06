@@ -13,6 +13,8 @@ class HomeController extends GetxController {
 
   var username = ''.obs;
 
+  var searchController = TextEditingController();
+
   getusername()async{
     var n = await firestore.collection(userCollections).where('id',isEqualTo: currentUser!.uid).get().then((value){
       if (value.docs.isNotEmpty) {

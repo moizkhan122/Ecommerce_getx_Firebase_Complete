@@ -5,10 +5,10 @@ const sliderList = [imgSlider1, imgSlider2, imgSlider3,imgSlider4];
 const slider2List = [imgSs1, imgSs2, imgSs3,imgSs4];
 const featuredImgList1 = [imgS1, imgS2, imgS3];
 const featuredImgList2 = [imgS4, imgS5, imgS6];
-const featuredtitleList1 = [womendress, girlsdress, girlswatches];
+const featuredtitleList1 = [womencloth, girlsdress, girlswatches];
 const featuredtitleList2 = [boysglasses, mobilephone, tShirt];
 const categoriesList=[
-  menclothingfashion,
+  womenclothing,
   comAsses,
   automobile,
   kidtoy,

@@ -23,13 +23,13 @@ const alreadyhaveacc = "Already Have An Account? ";
 const home = "Home" , categories = "Categories", cart = "Cart", account = "Acount";
 const searchEverything = "Search Everything" , todayDeal = "Today's Deal", flashsale = "Flash Sale";
 const topcategories = "Top Categories" , brands = "Brands", topseller = "Top Seller", featuredcategories = "Featured Categories";
-const womendress = "Women Dress" , girlswatches = "Girls Watches", mobilephone = "Mobile Phone", boysglasses = "Boys Glasses",
+const womencloth = "Women Clothing" , girlswatches = "Girls Watches", mobilephone = "Mobile Phone", boysglasses = "Boys Glasses",
 tShirt = "TShirt", girlsdress = "Girls Dress";
 const featuredProducts = "Featured Products";
 
 //categories strings
 const womenclothe="Women Products",
-  menclothingfashion = "Men Clothing Fashion",
+  womenclothing = "Women Clothing",
   comAsses = "Computer Assecories",
   automobile = "Auto Mobile",
   kidtoy= "Kids & Toys",
